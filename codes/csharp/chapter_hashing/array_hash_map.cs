@@ -12,7 +12,7 @@ class Pair(int key, string val) {
     public string val = val;
 }
 
-/* 基于数组简易实现的哈希表 */
+/* 基于数组实现的哈希表 */
 class ArrayHashMap {
     List<Pair?> buckets;
     public ArrayHashMap() {
@@ -107,7 +107,7 @@ public class array_hash_map {
         map.Print();
 
         /* 查询操作 */
-        // 向哈希表输入键 key ，得到值 value
+        // 向哈希表中输入键 key ，得到值 value
         string? name = map.Get(15937);
         Console.WriteLine("\n输入学号 15937 ，查询到姓名 " + name);
 

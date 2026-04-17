@@ -14,7 +14,7 @@ class quickSort {
 
     /* 哨兵划分 */
     static int Partition(int[] nums, int left, int right) {
-        // 以 nums[left] 作为基准数
+        // 以 nums[left] 为基准数
         int i = left, j = right;
         while (i < j) {
             while (i < j && nums[j] >= nums[left])
@@ -47,16 +47,14 @@ class QuickSortMedian {
         (nums[j], nums[i]) = (nums[i], nums[j]);
     }
 
-    /* 选取三个元素的中位数 */
+    /* 选取三个候选元素的中位数 */
     static int MedianThree(int[] nums, int left, int mid, int right) {
-        // 此处使用异或运算来简化代码
-        // 异或规则为 0 ^ 0 = 1 ^ 1 = 0, 0 ^ 1 = 1 ^ 0 = 1
-        if ((nums[left] < nums[mid]) ^ (nums[left] < nums[right]))
-            return left;
-        else if ((nums[mid] < nums[left]) ^ (nums[mid] < nums[right]))
-            return mid;
-        else
-            return right;
+        int l = nums[left], m = nums[mid], r = nums[right];
+        if ((l <= m && m <= r) || (r <= m && m <= l))
+            return mid; // m 在 l 和 r 之间
+        if ((m <= l && l <= r) || (r <= l && l <= m))
+            return left; // l 在 m 和 r 之间
+        return right;
     }
 
     /* 哨兵划分（三数取中值） */
@@ -65,7 +63,7 @@ class QuickSortMedian {
         int med = MedianThree(nums, left, (left + right) / 2, right);
         // 将中位数交换至数组最左端
         Swap(nums, left, med);
-        // 以 nums[left] 作为基准数
+        // 以 nums[left] 为基准数
         int i = left, j = right;
         while (i < j) {
             while (i < j && nums[j] >= nums[left])
@@ -91,7 +89,7 @@ class QuickSortMedian {
     }
 }
 
-/* 快速排序类（尾递归优化） */
+/* 快速排序类（递归深度优化） */
 class QuickSortTailCall {
     /* 元素交换 */
     static void Swap(int[] nums, int i, int j) {
@@ -100,7 +98,7 @@ class QuickSortTailCall {
 
     /* 哨兵划分 */
     static int Partition(int[] nums, int left, int right) {
-        // 以 nums[left] 作为基准数
+        // 以 nums[left] 为基准数
         int i = left, j = right;
         while (i < j) {
             while (i < j && nums[j] >= nums[left])
@@ -113,13 +111,13 @@ class QuickSortTailCall {
         return i; // 返回基准数的索引
     }
 
-    /* 快速排序（尾递归优化） */
+    /* 快速排序（递归深度优化） */
     public static void QuickSort(int[] nums, int left, int right) {
         // 子数组长度为 1 时终止
         while (left < right) {
             // 哨兵划分操作
             int pivot = Partition(nums, left, right);
-            // 对两个子数组中较短的那个执行快排
+            // 对两个子数组中较短的那个执行快速排序
             if (pivot - left < right - pivot) {
                 QuickSort(nums, left, pivot - 1);  // 递归排序左子数组
                 left = pivot + 1;  // 剩余未排序区间为 [pivot + 1, right]
@@ -144,9 +142,9 @@ public class quick_sort {
         QuickSortMedian.QuickSort(nums1, 0, nums1.Length - 1);
         Console.WriteLine("快速排序（中位基准数优化）完成后 nums1 = " + string.Join(",", nums1));
 
-        /* 快速排序（尾递归优化） */
+        /* 快速排序（递归深度优化） */
         int[] nums2 = [2, 4, 1, 0, 3, 5];
         QuickSortTailCall.QuickSort(nums2, 0, nums2.Length - 1);
-        Console.WriteLine("快速排序（尾递归优化）完成后 nums2 = " + string.Join(",", nums2));
+        Console.WriteLine("快速排序（递归深度优化）完成后 nums2 = " + string.Join(",", nums2));
     }
 }

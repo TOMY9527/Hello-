@@ -27,17 +27,17 @@ class MaxHeap {
         }
     }
 
-    /* 获取左子节点索引 */
+    /* 获取左子节点的索引 */
     int Left(int i) {
         return 2 * i + 1;
     }
 
-    /* 获取右子节点索引 */
+    /* 获取右子节点的索引 */
     int Right(int i) {
         return 2 * i + 2;
     }
 
-    /* 获取父节点索引 */
+    /* 获取父节点的索引 */
     int Parent(int i) {
         return (i - 1) / 2; // 向下整除
     }
@@ -85,7 +85,7 @@ class MaxHeap {
         // 判空处理
         if (IsEmpty())
             throw new IndexOutOfRangeException();
-        // 交换根节点与最右叶节点（即交换首元素与尾元素）
+        // 交换根节点与最右叶节点（交换首元素与尾元素）
         Swap(0, Size() - 1);
         // 删除节点
         int val = maxHeap.Last();
